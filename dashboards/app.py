@@ -10,52 +10,6 @@ st.set_page_config(
     layout="wide"
 )
 
-        
-        .main-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #00FFCC, #0099FF, #9900FF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.2rem;
-            letter-spacing: -0.05rem;
-        }
-        .main-subtitle {
-            font-size: 1.1rem;
-            color: #8A99AD;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-        
-        /* Custom card styling */
-        .metric-card {
-            background-color: #111827;
-            border: 1px solid #1F2937;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .metric-card:hover {
-            transform: translateY(-2px);
-            border-color: #3B82F6;
-        }
-        .metric-val {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #F3F4F6;
-            margin-top: 0.5rem;
-        }
-        .metric-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #9CA3AF;
-            text-transform: uppercase;
-            letter-spacing: 0.05rem;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
 # Define data paths
 ROOT_DIR = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = ROOT_DIR / "data" / "processed"
@@ -74,7 +28,7 @@ spatial_df, temporal_df, threats_df, vulnerabilities_df, malmem_df = load_data()
 
 # Header Section
 st.markdown('<div class="main-title">🛡️ CyberVision</div>', unsafe_allow_html=True)
-st.markdown('<div class="main-subtitle">Unified Cyber Threat Intelligence & Visual Analytics System</div>', unsafe_allow_html=True)
+st.subheader("Unified Cyber Threat Intelligence & Visual Analytics System")
 
 # Sidebar / Filters
 st.sidebar.markdown("## Global Filters")
@@ -100,37 +54,13 @@ total_loss = filtered_threats_df["financial_loss_in_million_"].sum() if not filt
 total_users = filtered_threats_df["number_of_affected_users"].sum() if not filtered_threats_df.empty else 0
 avg_resolution = filtered_threats_df["incident_resolution_time_in_hours"].mean() if not filtered_threats_df.empty else 0
 
-with kpi1:
-    st.markdown(f"""
-    <div class="metric-card">
-        <div class="metric-label">Total Global Incidents</div>
-        <div class="metric-val">{total_incidents:,}</div>
-    </div>
-    """, unsafe_allow_html=True)
+with kpi1: st.metric("Total Global Incidents", f"{total_incidents:,}")
 
-with kpi2:
-    st.markdown(f"""
-    <div class="metric-card">
-        <div class="metric-label">Estimated Loss (M USD)</div>
-        <div class="metric-val">${total_loss:,.1f}M</div>
-    </div>
-    """, unsafe_allow_html=True)
+with kpi2: st.metric("Estimated Loss (M USD)", f"${total_loss:,.1f}M")
 
-with kpi3:
-    st.markdown(f"""
-    <div class="metric-card">
-        <div class="metric-label">Users Impacted</div>
-        <div class="metric-val">{total_users:,}</div>
-    </div>
-    """, unsafe_allow_html=True)
+with kpi3: st.metric("Users Impacted", f"{total_users:,}")
 
-with kpi4:
-    st.markdown(f"""
-    <div class="metric-card">
-        <div class="metric-label">Avg Resolution Time</div>
-        <div class="metric-val">{avg_resolution:.1f} hrs</div>
-    </div>
-    """, unsafe_allow_html=True)
+with kpi4: st.metric("Avg Resolution Time", f"{avg_resolution:,.1f} hrs")
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -533,4 +463,5 @@ with tab_source:
         
     else:
         st.warning("Global threats dataset is missing or filters are too restrictive.")
+
 
