@@ -6,7 +6,7 @@ from pathlib import Path
 st.set_page_config(page_title="Attack Sources", layout="wide")
 st.title("Attack Source and Resolution-Time")
 
-DATA_DIR = Path("data/processed")
+DATA_DIR = Path(__file__).parent.parent / "data" / "processed"
 df = pd.read_csv(DATA_DIR / "global_threats_clean.csv") if (DATA_DIR / "global_threats_clean.csv").exists() else pd.DataFrame()
 
 if not df.empty:

@@ -11,7 +11,7 @@ st.title("CyberVision: Threat Intelligence Platform")
 st.markdown("Welcome to the CyberVision Dashboard. Use the sidebar on the left to navigate through the 7 analytical modules.")
 
 # Path to the data
-DATA_DIR = Path("data/processed")
+DATA_DIR = Path(__file__).parent.parent / "data" / "processed"
 
 @st.cache_data
 def get_summary_stats():
