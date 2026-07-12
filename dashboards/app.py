@@ -35,7 +35,7 @@ if stats:
     col2.metric("Total Financial Loss", f"${stats['total_loss_m']:,.1f}M")
     col3.metric("Affected Users", f"{stats['total_users']:,}")
 
-st.markdown("
+st.markdown("""
 ### Analytical Modules
 1. **Global Trends**: Analyze attack frequency over time.
 2. **Country Map**: View geographic distribution of cyber threats.
@@ -44,4 +44,4 @@ st.markdown("
 5. **Malware Analytics**: Understand malicious memory trends.
 6. **Attack Sources & Resolution**: See who attacks and how long recovery takes.
 7. **Threat Network**: Interactive Sankey diagram mapping threat propagation.
-")
+""")
